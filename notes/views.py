@@ -1,4 +1,6 @@
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -57,3 +59,9 @@ class NotesList(NoteBase, generic.ListView):
 class NoteDetail(NoteBase, generic.DetailView):
     """Заметка подробно."""
     template_name = 'notes/detail.html'
+
+
+def logout_view(request):
+    if request.method == 'GET':
+        logout(request)
+        return HttpResponse('Вы вышли')
